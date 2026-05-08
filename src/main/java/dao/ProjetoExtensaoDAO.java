@@ -1,6 +1,6 @@
 package dao;
 
-import controller.ConexaoBD;
+import Controller.ConexaoBD;
 import model.*;
 
 import java.sql.*;

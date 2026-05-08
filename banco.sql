@@ -1,7 +1,4 @@
--- ============================================================
---  Script de criação do banco de dados: meninas_digitais
---  Execute no MySQL antes de rodar a aplicação.
--- ============================================================
+
 
 CREATE DATABASE IF NOT EXISTS meninas_digitais
     CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

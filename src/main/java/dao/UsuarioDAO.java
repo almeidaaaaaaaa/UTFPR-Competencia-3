@@ -1,19 +1,14 @@
 package dao;
 
-import controller.ConexaoBD;
+import Controller.ConexaoBD;
 import model.*;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * DAO responsável pelas operações de banco de dados para a entidade Usuario.
- * RF01 - Cadastro/Login.
- */
 public class UsuarioDAO {
 
-    // ── CREATE ────────────────────────────────────────────────────────────────
 
     public void inserir(Usuario u) throws SQLException {
         String sql = "INSERT INTO usuario (nome, email, senha, tipo) VALUES (?, ?, ?, ?)";
@@ -21,7 +16,7 @@ public class UsuarioDAO {
         try (PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, u.getNome());
             ps.setString(2, u.getEmail());
-            ps.setString(3, u.getSenha()); // idealmente armazene hash (ex.: BCrypt)
+            ps.setString(3, u.getSenha());
             ps.setString(4, u.getTipo().name());
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();

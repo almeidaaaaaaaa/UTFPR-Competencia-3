@@ -1,10 +1,151 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Start Page</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
-</html>
+
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+    .card {
+        background: var(--color-background-primary);
+        border: 0.5px solid var(--color-border-tertiary);
+        border-radius: var(--border-radius-lg);
+        padding: 1.5rem;
+        max-width: 480px;
+    }
+    .field {
+        margin-bottom: 1rem;
+    }
+    label {
+        display: block;
+        font-size: 13px;
+        color: var(--color-text-secondary);
+        margin-bottom: 6px;
+    }
+    input, select {
+        width: 100%;
+    }
+    .row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+    .btn {
+        width: 100%;
+        margin-top: 0.5rem;
+        padding: 9px;
+        font-size: 14px;
+        cursor: pointer;
+    }
+    .result {
+        margin-top: 1rem;
+        padding: 12px;
+        border-radius: var(--border-radius-md);
+        font-size: 13px;
+        font-family: var(--font-mono);
+        display: none;
+        border: 0.5px solid;
+    }
+    .result.ok {
+        background: var(--color-background-success);
+        color: var(--color-text-success);
+        border-color: var(--color-border-success);
+    }
+    .result.err {
+        background: var(--color-background-danger);
+        color: var(--color-text-danger);
+        border-color: var(--color-border-danger);
+    }
+    .divider {
+        border: none;
+        border-top: 0.5px solid var(--color-border-tertiary);
+        margin: 1.25rem 0;
+    }
+    p.section {
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--color-text-tertiary);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 0.75rem;
+    }
+</style>
+
+<div style="padding: 1rem 0;">
+    <div class="card">
+        <p class="section">dados pessoais</p>
+        <div class="row">
+            <div class="field">
+                <label for="nome">nome</label>
+                <input type="text" id="nome" placeholder="Joao Silva">
+            </div>
+            <div class="field">
+                <label for="tipo">tipo</label>
+                <select id="tipo">
+                    <option value="COMUM">Comum</option>
+                    <option value="GESTOR">Gestor</option>
+                    <option value="ADMINISTRADOR">Administrador</option>
+                </select>
+            </div>
+        </div>
+        <hr class="divider">
+        <p class="section">acesso</p>
+        <div class="field">
+            <label for="email">email</label>
+            <input type="email" id="email" placeholder="joao@email.com">
+        </div>
+        <div class="field">
+            <label for="senha">senha</label>
+            <input type="password" id="senha" placeholder="••••••••">
+        </div>
+        <button class="btn" onclick="cadastrar()">cadastrar usuario</button>
+        <div class="result" id="result"></div>
+    </div>
+</div>
+
+<script>
+    async function cadastrar() {
+        const nome = document.getElementById('nome').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const senha = document.getElementById('senha').value;
+        const tipo = document.getElementById('tipo').value;
+        const res = document.getElementById('result');
+
+        if (!nome || !email || !senha) {
+            res.className = 'result err';
+            res.style.display = 'block';
+            res.textContent = 'preencha todos os campos.';
+            return;
+        }
+
+        res.className = 'result';
+        res.style.display = 'block';
+        res.textContent = 'enviando...';
+
+        const params = new URLSearchParams();
+        params.append('nome', nome);
+        params.append('email', email);
+        params.append('senha', senha);
+        params.append('tipo', tipo);
+
+        try {
+            const r = await fetch('http://localhost:8080/api/usuario', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                body: params.toString()
+            });
+
+            const text = await r.text();
+
+            if (r.ok || r.status === 201) {
+                res.className = 'result ok';
+                res.textContent = 'usuario cadastrado com sucesso!';
+            } else {
+                res.className = 'result err';
+                res.textContent = 'status ' + r.status + ' | ' + text;
+            }
+        } catch (e) {
+            res.className = 'result err';
+            res.textContent = 'falha na conexao: ' + e.message;
+        }
+    }
+</script>
