@@ -23,7 +23,7 @@ async function cadastrar() {
   params.append('tipo', tipo);
 
   try {
-    const r = await fetch('http://localhost:8080/api/usuario', {
+    const r = await fetch('/api/usuario', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: params.toString()

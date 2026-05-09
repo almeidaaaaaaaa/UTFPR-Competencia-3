@@ -10,7 +10,7 @@ public class ConexaoBD {
                                         + "?useSSL=false&allowPublicKeyRetrieval=true"
                                         + "&serverTimezone=America/Sao_Paulo";
     private static final String USUARIO = "root";
-    private static final String SENHA   = "";
+    private static final String SENHA   = ""; //Mudar senha de acordo com o seu SQL
 
     static {
         try {
