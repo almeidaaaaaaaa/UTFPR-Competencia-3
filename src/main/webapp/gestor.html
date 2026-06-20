@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meninas Digitais · Gestor</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="dashboard.css" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar-brand">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <span>Meninas Digitais · Gestor</span>
+    </div>
+    <div class="topbar-right">
+      <span id="saudacao">Olá, gestor</span>
+      <button class="btn-sair" onclick="sair()">Sair</button>
+    </div>
+  </header>
+
+  <div class="page-wrap">
+
+    <section class="card">
+      <h2 class="card-title">Painel de Gestão</h2>
+      <p class="card-sub">Revise e altere o status das sugestões recebidas.</p>
+
+      <div class="field">
+        <label>Filtrar por projeto</label>
+        <select id="filtro-projeto" onchange="carregarSugestoes()">
+          <option value="">Todos os projetos</option>
+        </select>
+      </div>
+
+      <div id="lista-sugestoes-gestor">
+        <p class="vazio">Carregando...</p>
+      </div>
+    </section>
+
+    <div class="modal-overlay" id="modal-overlay" style="display:none">
+      <div class="modal">
+        <h3 class="modal-title">Alterar Status</h3>
+        <input type="hidden" id="modal-id-sugestao" />
+
+        <div class="field">
+          <label>Novo status</label>
+          <select id="modal-status">
+            <option value="PENDENTE">Pendente</option>
+            <option value="EM_ANALISE">Em Análise</option>
+            <option value="APROVADA">Aprovada</option>
+            <option value="RECUSADA">Recusada</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Justificativa (opcional)</label>
+          <textarea id="modal-justificativa" rows="3" placeholder="Explique o motivo da decisão..."></textarea>
+        </div>
+
+        <div class="modal-btns">
+          <button class="btn-secondary" onclick="fecharModal()">Cancelar</button>
+          <button class="btn-primary" onclick="salvarStatus()">Salvar</button>
+        </div>
+        <div class="result" id="result-modal"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="gestor.js"></script>
+</body>
+</html>

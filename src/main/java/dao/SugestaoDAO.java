@@ -7,15 +7,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * DAO responsável pelas operações de banco de dados para a entidade Sugestao.
- * RF02 - Submissão de Ideia
- * RF03 - Painel de Gestão (alteração de status)
- * RF04 - Histórico de Sugestões
- */
 public class SugestaoDAO {
 
-    // ── CREATE ────────────────────────────────────────────────────────────────
 
     public void inserir(Sugestao s) throws SQLException {
         String sql = "INSERT INTO sugestao (titulo, descricao, status, data_envio, "
@@ -36,7 +29,6 @@ public class SugestaoDAO {
         }
     }
 
-    // ── READ ──────────────────────────────────────────────────────────────────
 
     public Sugestao buscarPorId(int id) throws SQLException {
         String sql = "SELECT * FROM sugestao WHERE id = ?";
@@ -51,7 +43,6 @@ public class SugestaoDAO {
         return null;
     }
 
-    /** RF04 - lista todas as sugestões de um usuário específico. */
     public List<Sugestao> listarPorProponente(int idProponente) throws SQLException {
         List<Sugestao> lista = new ArrayList<>();
         String sql = "SELECT * FROM sugestao WHERE id_proponente = ? ORDER BY data_envio DESC";
@@ -66,7 +57,6 @@ public class SugestaoDAO {
         return lista;
     }
 
-    /** RF03 - lista todas as sugestões de um projeto para o gestor. */
     public List<Sugestao> listarPorProjeto(int idProjeto) throws SQLException {
         List<Sugestao> lista = new ArrayList<>();
         String sql = "SELECT * FROM sugestao WHERE id_projeto = ? ORDER BY data_envio DESC";
@@ -94,9 +84,6 @@ public class SugestaoDAO {
         return lista;
     }
 
-    // ── UPDATE ────────────────────────────────────────────────────────────────
-
-    /** RF03 - Gestor altera o status da sugestão. */
     public void atualizarStatus(int id, StatusSugestao novoStatus,
                                 String justificativa) throws SQLException {
         String sql = "UPDATE sugestao SET status=?, justificativa=? WHERE id=?";
@@ -111,8 +98,6 @@ public class SugestaoDAO {
         }
     }
 
-    // ── DELETE ────────────────────────────────────────────────────────────────
-
     public void deletar(int id) throws SQLException {
         String sql = "DELETE FROM sugestao WHERE id = ?";
         Connection conn = ConexaoBD.getConnection();
@@ -124,8 +109,6 @@ public class SugestaoDAO {
         }
     }
 
-    // ── Mapeamento ResultSet → Objeto ─────────────────────────────────────────
-
     private Sugestao mapear(ResultSet rs) throws SQLException {
         Sugestao s = new Sugestao();
         s.setId(rs.getInt("id"));
@@ -135,7 +118,6 @@ public class SugestaoDAO {
         s.setDataEnvio(rs.getTimestamp("data_envio").toLocalDateTime());
         s.setJustificativa(rs.getString("justificativa"));
 
-        // Referências leves (apenas com ID) — carregue completo se necessário
         UsuarioComum proponente = new UsuarioComum();
         proponente.setId(rs.getInt("id_proponente"));
         s.setProponente(proponente);

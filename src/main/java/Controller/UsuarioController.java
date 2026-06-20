@@ -36,7 +36,7 @@ public class UsuarioController extends HttpServlet {
             u.setEmail(email);
             u.setSenha(senha);
             dao.inserir(u);
-            response.sendRedirect(request.getContextPath() + "/index.html");
+            response.sendRedirect(request.getContextPath() + "/login.html");
         } catch (SQLException e) {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

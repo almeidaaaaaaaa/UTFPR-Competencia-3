@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meninas Digitais · Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="dashboard.css" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar-brand">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <span>Meninas Digitais · Admin</span>
+    </div>
+    <div class="topbar-right">
+      <span id="saudacao">Olá, admin</span>
+      <button class="btn-sair" onclick="sair()">Sair</button>
+    </div>
+  </header>
+
+  <div class="page-wrap">
+
+    <section class="card">
+      <h2 class="card-title">Cadastrar Projeto de Extensão</h2>
+      <p class="card-sub">Adicione um novo projeto ao sistema.</p>
+
+      <div class="field">
+        <label>Nome do projeto</label>
+        <input type="text" id="proj-nome" placeholder="Ex: Meninas Digitais" />
+      </div>
+      <div class="field">
+        <label>Descrição</label>
+        <textarea id="proj-descricao" rows="3" placeholder="Descreva o projeto..."></textarea>
+      </div>
+      <div class="field">
+        <label>Coordenador (ID do gestor)</label>
+        <input type="number" id="proj-coordenador" placeholder="Ex: 2" />
+      </div>
+
+      <button class="btn-primary" onclick="cadastrarProjeto()">Cadastrar projeto</button>
+      <div class="result" id="result-projeto"></div>
+    </section>
+
+    <section class="card">
+      <h2 class="card-title">Usuários Cadastrados</h2>
+      <p class="card-sub">Gerencie as contas do sistema.</p>
+      <div id="lista-usuarios">
+        <p class="vazio">Carregando...</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="card-title">Projetos Cadastrados</h2>
+      <p class="card-sub">Veja todos os projetos de extensão.</p>
+      <div id="lista-projetos">
+        <p class="vazio">Carregando...</p>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>

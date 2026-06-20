@@ -7,9 +7,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * DAO responsável pelas operações de banco de dados para ProjetoExtensao.
- */
 public class ProjetoExtensaoDAO {
 
     public void inserir(ProjetoExtensao p) throws SQLException {
@@ -83,9 +80,9 @@ public class ProjetoExtensaoDAO {
         p.setId(rs.getInt("id"));
         p.setNome(rs.getString("nome"));
         p.setDescricao(rs.getString("descricao"));
-        Gestor g = new Gestor();
-        g.setId(rs.getInt("id_coordenador"));
-        p.setCoordenador(g);
+        UsuarioComum coord = new UsuarioComum();
+        coord.setId(rs.getInt("id_coordenador"));
+        p.setCoordenador(coord);
         return p;
     }
 }

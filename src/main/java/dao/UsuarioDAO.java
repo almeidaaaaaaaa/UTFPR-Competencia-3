@@ -26,8 +26,6 @@ public class UsuarioDAO {
         }
     }
 
-    // ── READ ──────────────────────────────────────────────────────────────────
-
     public Usuario buscarPorEmailSenha(String email, String senha) throws SQLException {
         String sql = "SELECT * FROM usuario WHERE email = ? AND senha = ?";
         Connection conn = ConexaoBD.getConnection();
@@ -68,8 +66,6 @@ public class UsuarioDAO {
         return lista;
     }
 
-    // ── UPDATE ────────────────────────────────────────────────────────────────
-
     public void atualizar(Usuario u) throws SQLException {
         String sql = "UPDATE usuario SET nome=?, email=?, senha=?, tipo=? WHERE id=?";
         Connection conn = ConexaoBD.getConnection();
@@ -85,8 +81,6 @@ public class UsuarioDAO {
         }
     }
 
-    // ── DELETE ────────────────────────────────────────────────────────────────
-
     public void deletar(int id) throws SQLException {
         String sql = "DELETE FROM usuario WHERE id = ?";
         Connection conn = ConexaoBD.getConnection();
@@ -97,8 +91,6 @@ public class UsuarioDAO {
             ConexaoBD.fechar(conn);
         }
     }
-
-    // ── Mapeamento ResultSet → Objeto ─────────────────────────────────────────
 
     private Usuario mapear(ResultSet rs) throws SQLException {
         TipoUsuario tipo = TipoUsuario.valueOf(rs.getString("tipo"));

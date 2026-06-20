@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meninas Digitais · Início</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="dashboard.css" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar-brand">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <span>Meninas Digitais</span>
+    </div>
+    <div class="topbar-right">
+      <span id="saudacao">Olá, usuário</span>
+      <button class="btn-sair" onclick="sair()">Sair</button>
+    </div>
+  </header>
+
+  <div class="page-wrap">
+
+    <section class="card">
+      <h2 class="card-title">Nova Sugestão</h2>
+      <p class="card-sub">Envie uma ideia vinculada a um projeto de extensão.</p>
+
+      <div class="field">
+        <label>Projeto</label>
+        <select id="projeto">
+          <option value="">Carregando projetos...</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Título da sugestão</label>
+        <input type="text" id="titulo" placeholder="Ex: Workshop de Python para iniciantes" />
+      </div>
+      <div class="field">
+        <label>Descrição</label>
+        <textarea id="descricao" rows="4" placeholder="Descreva a sua ideia com detalhes..."></textarea>
+      </div>
+
+      <button class="btn-primary" onclick="enviarSugestao()">Enviar sugestão</button>
+      <div class="result" id="result-sugestao"></div>
+    </section>
+
+    <section class="card">
+      <h2 class="card-title">Minhas Sugestões</h2>
+      <p class="card-sub">Acompanhe o status das suas ideias enviadas.</p>
+      <div id="lista-sugestoes">
+        <p class="vazio">Carregando...</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="card-title">Sugestões da Comunidade</h2>
+      <p class="card-sub">Veja todas as ideias enviadas, seus status e justificativas.</p>
+
+      <div class="field">
+        <label>Filtrar por projeto</label>
+        <select id="filtro-projeto-comunidade" onchange="carregarTodasSugestoes()">
+          <option value="">Todos os projetos</option>
+        </select>
+      </div>
+
+      <div id="lista-todas-sugestoes">
+        <p class="vazio">Carregando...</p>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="usuario.js"></script>
+</body>
+</html>
